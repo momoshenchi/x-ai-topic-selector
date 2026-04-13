@@ -1,22 +1,6 @@
 ---
 name: x-ai-topic-selector
 description: Fetches tweets from Twitter List, scores them using data metrics and AI analysis, and generates topic recommendation reports for content creators.
-commands:
-  - name: /select-topics
-    description: Generate topic report from Twitter List, Home, or Bookmarks (interactive guided flow)
----
-
-## ⚠️ 默认行为 (Default Behavior)
-
-**重要**: 当用户直接调用 `/x-ai-topic-selector` 而不指定子命令时，Agent **必须自动启动** `/select-topics` 的完整交互流程。
-
-### 交互模式要求
-
-- ✅ **必须使用**: `question()` 工具 + `options` 数组（生成**可点击的选项按钮**）
-- ❌ **禁止使用**: 文本提示 + 等待用户输入（如"请输入..."、"直接回复选项编号"等）
-
-**所有参数收集必须通过 `question()` 工具的选项选择完成**，用户只需点击选项，无需手动输入文本（除非是自由格式输入，如 API Key、URL 等特殊情况）。
-
 ---
 
 # X AI Topic Selector
@@ -25,16 +9,14 @@ commands:
 
 ![alt text](architecture.svg)
 
-## 命令
+## 交互模式要求
 
-### `/select-topics`
-
-运行选题工具。
-
-**使用方式**: 直接调用 `/select-topics`，Agent 将通过交互式引导收集参数。
-**功能说明**:
+- ✅ **必须使用**: `question()` 工具 + `options` 数组（生成**可点击的选项按钮**）
+- ❌ **禁止使用**: 文本提示 + 等待用户输入（如"请输入..."、"直接回复选项编号"等）
 - **扫描模式 (Lists/Home)**: 支持按分类筛选、多维评分、精选推荐。
 - **书签模式 (Bookmarks)**: 自动提取全部书签内容，进入 AI 深度分析模式（无过滤，保留全部）。
+
+**所有参数收集必须通过 `question()` 工具的选项选择完成**，用户只需点击选项，无需手动输入文本（除非是自由格式输入，如 API Key、URL 等特殊情况）。
 
 ---
 
@@ -77,7 +59,7 @@ Agent 在执行前**必须检查**此文件是否存在：
 
 ## 交互流程
 
-当用户触发 `/select-topics` 命令后，Agent **必须按以下步骤**使用 `question()` 工具引导用户：
+Agent **必须按以下步骤**使用 `question()` 工具引导用户：
 
 ### Step 0: 检查已保存配置
 
@@ -115,9 +97,6 @@ question({
 首先显示欢迎信息和重要提示：
 
 ```
-📊 X AI 选题助手
-由公众号「懂点儿AI」开发维护，如有问题或建议欢迎关注公众号反馈。
-
 在开始之前，请确保：
 ✅ 已安装 Google Chrome 浏览器
 ✅ 已在 Chrome 中登录您的 X (Twitter) 账号
@@ -209,12 +188,6 @@ question({
 - **如果用户选择 "Gemini"**: 传 `--ai-provider gemini`。
 - **如果用户选择 "OpenAI 兼容"**: 传 `--ai-provider openai`。
 - **如果用户选择 "数据分析模式" 且非书签来源**: AI 服务商选择可忽略（不使用 AI）。
-
-#### A. 已移除书签模式独立流程 (已合并到 Step 2)
-
-Step 2 现在一次性收集所有参数。如果 Source = Bookmarks，脚本会自动忽略评分模式和推荐条数等参数。
-
-#### B. 扫描过滤模式流程 (已合并到 Step 2)
 
 ### Step 2b: 条件性补充收集
 
