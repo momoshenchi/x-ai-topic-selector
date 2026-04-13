@@ -339,25 +339,20 @@ EOF
 
 ## 参数映射
 
-| 交互选项 | 脚本参数 |
-|----------|----------|
-| 数据分析模式 | `--score-mode data-only` |
-| AI 分析模式 | `--score-mode ai-only` |
-| 自动检测 (AI 服务商) | (不传 `--ai-provider` 参数) |
-| Gemini | `--ai-provider gemini` |
-| OpenAI 兼容 | `--ai-provider openai` |
-| AI 工具/产品发布 | `--topic-category ai-tools` |
-| 行业新闻/动态 | `--topic-category industry-news` |
-| 技术突破/论文 | `--topic-category tech-breakthroughs` |
-| 教程/实用技巧 | `--topic-category tutorials` |
-| 争议/讨论话题 | `--topic-category controversial` |
-| 不限 | `--topic-category all` |
-| 100 条 | `--max-tweets 100` |
-| 200 条 | `--max-tweets 200` |
-| 500 条 | `--max-tweets 500` |
-| 5 条 | `--top-n 5` |
-| 10 条 | `--top-n 10` |
-| 20 条 | `--top-n 20` |
+参数	说明	默认值
+<source-url>	来源 URL 或列表 ID（支持 Lists / Home / Bookmarks）	必填
+--score-mode <mode>	评分模式：data-only 基于互动数据 / ai-only 基于 AI 分析（需 API Key）	data-only
+--ai-provider <provider>	AI 服务商：auto-detect 自动检测 / gemini 使用 Gemini / openai 使用 OpenAI 兼容接口	auto-detect
+--max-tweets <n>	最大抓取数量	200
+--top-n <n>	推荐数量（仅扫描模式生效）	10
+--topic-category <cat>	分类过滤：all / ai-tools / industry-news / tech-breakthroughs / tutorials / controversial	all
+--keywords <k1,k2>	包含关键词，逗号分隔	-
+--exclude <e1,e2>	排除关键词，逗号分隔	-
+--output <path>	报告输出路径	自动生成带时间戳的文件名
+--digest	书签日报模式别名（自动设置 bookmarks 来源 + ai-only + top-n 15）	false
+--profile <dir>	Chrome 用户配置目录	~/.local/share/x-topic-selector-profile
+--dry-run	仅打印结果到终端，不保存文件	false
+--help	显示帮助信息	- 
 
 ---
 
