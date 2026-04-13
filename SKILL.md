@@ -11,8 +11,6 @@ description: Fetches tweets from Twitter List, scores them using data metrics an
 
 - ✅ **必须使用**: `question()` 工具 + `options` 数组（生成**可点击的选项按钮**）
 - ❌ **禁止使用**: 文本提示 + 等待用户输入（如"请输入..."、"直接回复选项编号"等）
-- **扫描模式 (Lists/Home)**: 支持按分类筛选、多维评分、精选推荐。
-- **书签模式 (Bookmarks)**: 自动提取全部书签内容，进入 AI 深度分析模式（无过滤，保留全部）。
 
 **所有参数收集必须通过 `question()` 工具的选项选择完成**，用户只需点击选项，无需手动输入文本（除非是自由格式输入，如 API Key、URL 等特殊情况）。
 
@@ -339,20 +337,21 @@ EOF
 
 ## 参数映射
 
-参数	说明	默认值
-<source-url>	来源 URL 或列表 ID（支持 Lists / Home / Bookmarks）	必填
---score-mode <mode>	评分模式：data-only 基于互动数据 / ai-only 基于 AI 分析（需 API Key）	data-only
---ai-provider <provider>	AI 服务商：auto-detect 自动检测 / gemini 使用 Gemini / openai 使用 OpenAI 兼容接口	auto-detect
---max-tweets <n>	最大抓取数量	200
---top-n <n>	推荐数量（仅扫描模式生效）	10
---topic-category <cat>	分类过滤：all / ai-tools / industry-news / tech-breakthroughs / tutorials / controversial	all
---keywords <k1,k2>	包含关键词，逗号分隔	-
---exclude <e1,e2>	排除关键词，逗号分隔	-
---output <path>	报告输出路径	自动生成带时间戳的文件名
---digest	书签日报模式别名（自动设置 bookmarks 来源 + ai-only + top-n 15）	false
---profile <dir>	Chrome 用户配置目录	~/.local/share/x-topic-selector-profile
---dry-run	仅打印结果到终端，不保存文件	false
---help	显示帮助信息	- 
+| 参数 | 说明 | 默认值 |
+|------|------|--------|
+| `<source-url>` | 来源 URL 或列表 ID（支持 Lists / Home / Bookmarks） | 必填 |
+| `--score-mode <mode>` | 评分模式：`data-only` 基于互动数据 / `ai-only` 基于 AI 分析（需 API Key） | `data-only` |
+| `--ai-provider <provider>` | AI 服务商：`auto-detect` 自动检测 / `gemini` 使用 Gemini / `openai` 使用 OpenAI 兼容接口 | `auto-detect` |
+| `--max-tweets <n>` | 最大抓取数量 | 200 |
+| `--top-n <n>` | 推荐数量（仅扫描模式生效） | 10 |
+| `--topic-category <cat>` | 分类过滤：`all` / `ai-tools` / `industry-news` / `tech-breakthroughs` / `tutorials` / `controversial` | `all` |
+| `--keywords <k1,k2>` | 包含关键词，逗号分隔 | - |
+| `--exclude <e1,e2>` | 排除关键词，逗号分隔 | - |
+| `--output <path>` | 报告输出路径 | 自动生成带时间戳的文件名 |
+| `--digest` | 书签日报模式别名（自动设置 bookmarks 来源 + ai-only + top-n 15） | false |
+| `--profile <dir>` | Chrome 用户配置目录 | `~/.local/share/x-topic-selector-profile` |
+| `--dry-run` | 仅打印结果到终端，不保存文件 | false |
+| `--help` | 显示帮助信息 | - |
 
 ---
 
