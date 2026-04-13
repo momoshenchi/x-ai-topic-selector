@@ -7,8 +7,6 @@ description: Fetches tweets from Twitter List, scores them using data metrics an
 
 自动从 X (Twitter) 抓取推文，通过多维评分（数据指标 + AI 分析）生成选题推荐报告。
 
-![alt text](architecture.svg)
-
 ## 交互模式要求
 
 - ✅ **必须使用**: `question()` 工具 + `options` 数组（生成**可点击的选项按钮**）
@@ -57,9 +55,27 @@ Agent 在执行前**必须检查**此文件是否存在：
 
 ---
 
+## 脚本目录
+
+**重要**: 所有脚本位于此 skill 的 `scripts/` 子目录。
+
+**Agent 执行说明**:
+1. 确定此 SKILL.md 文件的目录路径为 `SKILL_DIR`
+2. 脚本路径 = `${SKILL_DIR}/scripts/<script-name>.ts`
+3. 将本文档中所有 `${SKILL_DIR}` 替换为实际路径
+
+| 脚本 | 用途 |
+|------|------|
+| `scripts/x-topic-selector.ts` | 主脚本 - 抓取、评分、生成报告 |
+| `scripts/ai-scorer.ts` | Gemini API 集成，AI 评分 |
+| `scripts/report-generator.ts` | Markdown 报告生成 |
+| `scripts/x-utils.ts` | Chrome CDP 工具函数 |
+
+---
+
 ## 交互流程
 
-Agent **必须按以下步骤**使用 `question()` 工具引导用户：
+**必须按以下步骤**使用 `question()` 工具引导用户：
 
 ### Step 0: 检查已保存配置
 
@@ -97,6 +113,7 @@ question({
 首先显示欢迎信息和重要提示：
 
 ```
+X AI Topic Selector Start
 在开始之前，请确保：
 ✅ 已安装 Google Chrome 浏览器
 ✅ 已在 Chrome 中登录您的 X (Twitter) 账号
@@ -317,41 +334,6 @@ EOF
 - 📝 今日看点预览
 - 🏆 必读 Top 3 标题
 - 💡 选题思路数量
-
----
-
-## 脚本目录
-... (内容同前)
-
-## 参数映射
-... (内容同前)
-
-## 环境要求
-... (内容同前)
-
-## Thread 自动展开
-... (内容同前)
-
-## 故障排除
-... (内容同前)
-
----
-
-## 脚本目录
-
-**重要**: 所有脚本位于此 skill 的 `scripts/` 子目录。
-
-**Agent 执行说明**:
-1. 确定此 SKILL.md 文件的目录路径为 `SKILL_DIR`
-2. 脚本路径 = `${SKILL_DIR}/scripts/<script-name>.ts`
-3. 将本文档中所有 `${SKILL_DIR}` 替换为实际路径
-
-| 脚本 | 用途 |
-|------|------|
-| `scripts/x-topic-selector.ts` | 主脚本 - 抓取、评分、生成报告 |
-| `scripts/ai-scorer.ts` | Gemini API 集成，AI 评分 |
-| `scripts/report-generator.ts` | Markdown 报告生成 |
-| `scripts/x-utils.ts` | Chrome CDP 工具函数 |
 
 ---
 
